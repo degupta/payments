@@ -1,6 +1,6 @@
 %h3= @company.name
+%p= link_to "Payments", company_reminders_path(@company.id)
 
-%br
 %br
 %h4 Add User to Company
 =form_tag company_add_user_path(@company.id), :method => :post do

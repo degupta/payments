@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates_presence_of   :email
   validates_uniqueness_of :email
 
+  validates_presence_of :name
+
   attr_accessor         :password, :password_confirmation
   before_save           :hash_password
   before_validation     :hash_password
@@ -30,6 +32,10 @@ class User < ActiveRecord::Base
       name:   self.name,
       email:  self.email
     }
+  end
+
+  def has_company? c
+    self.companies.map {|c| c.id }.include? c.id
   end
 
   private

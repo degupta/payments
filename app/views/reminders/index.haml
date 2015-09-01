@@ -1,0 +1,71 @@
+%h3 Payments
+
+%h4 Add new Payment
+=form_tag company_reminders_path(@company.id), :method => :post do
+  Party Name:
+  =text_field_tag "party"
+  %br
+  %br
+  Party Number:
+  =text_field_tag "party_number"
+  %br
+  %br
+  Broker:
+  =text_field_tag "broker"
+  %br
+  %br
+  Broker Number:
+  =text_field_tag "broker_number"
+  %br
+  %br
+  Bill Date:
+  =text_field_tag "bill_date"
+  %br
+  %br
+  Bill No:
+  =text_field_tag "bill_no"
+  %br
+  %br
+  Amount:
+  =text_field_tag "amount"
+  %br
+  %br
+  Due Date:
+  =text_field_tag "due_date"
+  %br
+  %br
+  Repeat:
+  =text_field_tag "repeat"
+  %br
+  %br
+  =submit_tag "Add Payment"
+
+%br
+%table
+  %tr
+    %th Party Name
+    %th Party Number
+    %th Broker
+    %th Broker Number
+    %th Bill Date
+    %th Bill No
+    %th Amount
+    %th Due Date
+    %th Repeat After
+    %th Last Message Sent
+  - @company.reminders.each do |r|
+    %tr
+      %td= r.party
+      %td= r.party_number
+      %td= r.broker
+      %td= r.broker_number
+      %td= r.bill_date
+      %td= r.bill_no
+      %td= r.amount
+      %td= r.due_date
+      %td= r.repeat
+      %td= r.last_reminder
+      %td
+        =form_tag company_reminders_path(@company.id), :method => :delete do
+          =hidden_field_tag "reminder_id", r.id
+          =submit_tag "Delete"

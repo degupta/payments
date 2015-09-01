@@ -8,5 +8,6 @@ Payments::Application.routes.draw do
 
   resources :companies do
   	post 'add_user', to: 'companies#add_user', as: 'add_user'
+  	resources 'reminders'
   end
 end

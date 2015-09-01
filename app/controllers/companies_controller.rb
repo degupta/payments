@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class CompaniesController < BaseCompanyController
   def index
     render
   end
@@ -28,32 +28,13 @@ class CompaniesController < ApplicationController
   def add_user
     check_and_run do
       user = User.where("email = ?", params[:email]).first
-      if has_company? user, @company
+      if user.has_company? @company
         redirect_success(companies_path, :ok, "User already part of company")
       else
         user.companies << @company
         user.save!
         redirect_success(companies_path, :ok, "User added to company")
       end
-    end
-  end
-
-  private
-
-  def has_company? (u, c)
-    u.companies.map {|c| c.id }.include? c.id
-  end
-
-  def check_and_run
-    begin
-      @company = Company.find((params[:id] || params[:company_id]).to_i)
-      if has_company? @user, @company
-        yield
-      else
-        redirect_error(companies_path, :unauthorized, "Unauthorized")
-      end
-    rescue Exception => e
-      redirect_error(companies_path, :not_found, e.message)
     end
   end
 end
