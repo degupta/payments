@@ -33,6 +33,7 @@ class CompaniesController < ApplicationController
       else
         user.companies << @company
         user.save!
+        redirect_success(companies_path, :ok, "User added to company")
       end
     end
   end

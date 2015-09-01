@@ -24,6 +24,14 @@ class User < ActiveRecord::Base
     u.save!
   end
 
+  def as_json(options = {})
+    {
+      id:     self.id,
+      name:   self.name,
+      email:  self.email
+    }
+  end
+
   private
 
   def validate_native_languages

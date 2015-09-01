@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901171735) do
+ActiveRecord::Schema.define(version: 20150901182251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20150901171735) do
 
   add_index "companies_users", ["company_id", "user_id"], name: "index_companies_users_on_company_id_and_user_id", using: :btree
   add_index "companies_users", ["user_id", "company_id"], name: "index_companies_users_on_user_id_and_company_id", using: :btree
+
+  create_table "reminders", force: true do |t|
+    t.string   "party"
+    t.date     "bill_date"
+    t.string   "bill_no"
+    t.decimal  "amount"
+    t.date     "due_date"
+    t.string   "broker"
+    t.string   "party_number"
+    t.string   "broker_number"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reminders", ["company_id"], name: "index_reminders_on_company_id", using: :btree
+  add_index "reminders", ["due_date"], name: "index_reminders_on_due_date", using: :btree
+  add_index "reminders", ["party"], name: "index_reminders_on_party", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email"
