@@ -5,10 +5,14 @@ class BaseCompanyController < ApplicationController
       if @user.has_company? @company
         yield
       else
-        redirect_error(companies_path, :unauthorized, "Unauthorized")
+        redirect_error(redirect_path, :unauthorized, "Unauthorized")
       end
     rescue Exception => e
-      redirect_error(companies_path, :not_found, e.message)
+      redirect_error(redirect_path, :not_found, e.message)
     end
+  end
+
+  def redirect_path
+    companies_path
   end
 end

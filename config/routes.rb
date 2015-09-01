@@ -7,7 +7,9 @@ Payments::Application.routes.draw do
   post 'forgot_password', to: 'login#forgot_password', as: 'forgot_password_reset'
 
   resources :companies do
-  	post 'add_user', to: 'companies#add_user', as: 'add_user'
-  	resources 'reminders'
+    post 'add_user', to: 'companies#add_user', as: 'add_user'
+    resources 'reminders' do
+      post 'sent_message', to: 'reminders#sent_message', as: 'sent_message'
+    end
   end
 end

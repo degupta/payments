@@ -11,4 +11,14 @@ class Reminder < ActiveRecord::Base
   validates_presence_of :broker_number
   validates_presence_of :party_number
   validates_presence_of :repeat
+
+  validate :validate_dates
+
+  private
+
+  def validate_dates
+    if self.due_date && self.bill_date && self.due_date < self.bill_date
+      errors.add(:due_date, "Due Date must be after bill date")
+    end
+  end
 end
