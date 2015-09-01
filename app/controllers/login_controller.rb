@@ -12,8 +12,8 @@ class LoginController < ApplicationController
   end
 
   def login
-    if params[:username] && params[:password]
-      @user = User.where("username = ? or email = ?", params[:username], params[:username]).first
+    if params[:email] && params[:password]
+      @user = User.where("email = ?", params[:email]).first
       if @user && BCrypt::Password.new(@user.hashed_password).is_password?(params[:password])
         respond_to do |format|
           format.html {
@@ -29,11 +29,11 @@ class LoginController < ApplicationController
         end
       else
         session[:user_id] = nil
-        redirect_error(login_path, :unauthorized, "Username or password was wrong")
+        redirect_error(login_path, :unauthorized, "Email or password was wrong")
       end
     else
       session[:user_id] = nil
-      redirect_error(login_path, :unauthorized, "Username or password was wrong")
+      redirect_error(login_path, :unauthorized, "Email or password was wrong")
     end
   end
 
@@ -44,10 +44,10 @@ class LoginController < ApplicationController
 
   def forgot_password
     if request.post?
-      if params[:username]
+      if params[:email]
         begin
-          user = User.where("username = ? or email = ?", params[:username], params[:username]).first
-          raise "Cannot find user #{params[:username]}" unless user
+          user = User.where("email = ?", params[:email]).first
+          raise "Cannot find user #{params[:email]}" unless user
           password = user.reset_password
           user.save!
           SignUpMailer.sign_up_email(user, password, true).deliver
