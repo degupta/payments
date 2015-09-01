@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   def self.create_user(name, email, password)
     u = User.new
-    u.username = username
+    u.name = name
     u.email = email
     u.password = password
     u.password_confirmation = password

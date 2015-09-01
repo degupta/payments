@@ -18,7 +18,7 @@ class LoginController < ApplicationController
         respond_to do |format|
           format.html {
             session[:user_id] = @user.id
-            redirect_to user_path(@user.id)
+            redirect_to companies_path
           }
           format.json {
             render json: {

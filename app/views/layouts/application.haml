@@ -9,7 +9,7 @@
     %div.top_nav_bar
       %ul
         - if @user
-          %li= link_to "#{@user.name}", user_path(@user.id)
+          %li= @user.name
           %li= link_to "Logout", logout_path
     - if flash[:success]
       %p{style: 'color:green' }= flash[:success]
