@@ -1,0 +1,17 @@
+- if @user
+  %h1 Welcome #{@user.username}
+- else
+  %h1 Login
+
+  =form_tag login_path, :method => :post do
+    Username:
+    =text_field_tag "username"
+    %br
+    %br
+    Password:
+    =password_field_tag "password"
+    %br
+    %br
+    =submit_tag "Submit"
+%br
+=link_to "Forgot Password?", forgot_password_path

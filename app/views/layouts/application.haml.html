@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title Payments
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    %div.top_nav_bar
+      %ul
+        - if @user
+          %li= link_to "#{@user.username}#{@user.admin? ? '(admin)' : ''}", user_path(@user.id)
+          - if @user.admin?
+            %li= link_to "Create New User", new_admin_user_path
+            %li= link_to "Users", admin_users_path
+            %li= link_to "Groups", admin_groups_path
+            %li= link_to "Recordings", admin_recordings_path
+          %li= link_to "Logout", logout_path
+    - if flash[:success]
+      %p{style: 'color:green' }= flash[:success]
+    - if flash[:error]
+      %p{style: 'color:red' }= flash[:error]
+    = yield

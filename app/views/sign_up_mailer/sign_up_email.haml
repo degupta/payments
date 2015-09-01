@@ -1,0 +1,7 @@
+%html
+  %body
+    - if @reset_password
+      %h3 Your password has been reset!
+    - else
+      %h3 Welcome! You have been signed up
+    %p= "Your password is #{@password}"
