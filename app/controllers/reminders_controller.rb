@@ -14,11 +14,11 @@ class RemindersController < BaseCompanyController
     end
   end
 
-  def delete
+  def destroy
     check_and_run do
       begin
-        r = Reminder.find(params[:reminder_id])
-        r.delete!
+        r = Reminder.find(params[:id])
+        r.destroy!
         redirect_success(company_reminders_path(@company.id), :ok, "Reminder deleted")
       rescue Exception => e
         redirect_error(company_reminders_path(@company.id), :internal_error, e.message)  

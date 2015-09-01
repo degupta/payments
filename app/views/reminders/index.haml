@@ -66,6 +66,5 @@
       %td= r.repeat
       %td= r.last_reminder
       %td
-        =form_tag company_reminders_path(@company.id), :method => :delete do
-          =hidden_field_tag "reminder_id", r.id
+        =form_tag company_reminder_path(@company.id, r.id), :method => :delete do
           =submit_tag "Delete"
