@@ -20,9 +20,37 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    begin
-      @company = Company.find(params[:id].to_i)
+    check_and_run do
       render
+    end
+  end
+
+  def add_user
+    check_and_run do
+      user = User.where("email = ?", params[:email]).first
+      if has_company? user, @company
+        redirect_success(companies_path, :ok, "User already part of company")
+      else
+        user.companies << @company
+        user.save!
+      end
+    end
+  end
+
+  private
+
+  def has_company? (u, c)
+    u.companies.map {|c| c.id }.include? c.id
+  end
+
+  def check_and_run
+    begin
+      @company = Company.find((params[:id] || params[:company_id]).to_i)
+      if has_company? @user, @company
+        yield
+      else
+        redirect_error(companies_path, :unauthorized, "Unauthorized")
+      end
     rescue Exception => e
       redirect_error(companies_path, :not_found, e.message)
     end

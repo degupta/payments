@@ -6,5 +6,7 @@ Payments::Application.routes.draw do
   get  'forgot_password', to: 'login#forgot_password', as: 'forgot_password'
   post 'forgot_password', to: 'login#forgot_password', as: 'forgot_password_reset'
 
-  resources :companies
+  resources :companies do
+  	post 'add_user', to: 'companies#add_user', as: 'add_user'
+  end
 end

@@ -1,1 +1,8 @@
 %h3= @company.name
+
+%br
+%br
+%h4 Add User to Company
+=form_tag company_add_user_path(@company.id), :method => :post do
+  =text_field_tag "email"
+  =submit_tag "Add Email"
