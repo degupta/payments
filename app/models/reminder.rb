@@ -33,7 +33,7 @@ class Reminder < ActiveRecord::Base
 
   def validate_dates
     if self.due_date && self.bill_date && self.due_date < self.bill_date
-      errors.add(:due_date, "Due Date must be after bill date")
+      errors.add(:due_date, "must be after bill date")
     end
   end
 end

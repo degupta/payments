@@ -54,8 +54,10 @@ class RemindersController < BaseCompanyController
   private
 
   def reminder_params
-    params[:bill_date] = Date.parse(params[:bill_date], "%d-%m-%Y") if params[:bill_date]
-    params[:due_date] = Date.parse(params[:due_date], "%d-%m-%Y") if params[:due_date]
+    if params[:bill_date]
+      params[:bill_date] = Date.parse(params[:bill_date], "%d-%m-%Y")
+      params[:due_date] = params[:bill_date] + params[:due_days].to_i  if params[:due_days]
+    end
     params.permit(:party, :party_number, :broker, :broker_number, :bill_date, :bill_no, :amount, :due_date, :repeat)
   end
 end
