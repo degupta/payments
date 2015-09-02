@@ -1,5 +1,6 @@
 %h3= @company.name
-%p= link_to "Payments", company_reminders_path(@company.id)
+%p= link_to "All Payments", company_reminders_path(@company.id)
+%p= link_to "Pending Payments", company_pending_reminders_path(@company.id)
 
 %br
 %h4 Add User to Company

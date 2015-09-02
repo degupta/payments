@@ -41,34 +41,4 @@
   =submit_tag "Add Payment"
 
 %br
-%table
-  %tr
-    %th Party Name
-    %th Party Number
-    %th Broker
-    %th Broker Number
-    %th Bill Date
-    %th Bill No
-    %th Amount
-    %th Due Date
-    %th Repeat After
-    %th Last Message Sent
-  - @company.reminders.each do |r|
-    %tr
-      %td= r.party
-      %td= r.party_number
-      %td= r.broker
-      %td= r.broker_number
-      %td= r.bill_date.strftime("%d-%m-%Y")
-      %td= r.bill_no
-      %td= r.amount
-      %td= r.due_date.strftime("%d-%m-%Y")
-      %td= r.repeat
-      %td= r.last_reminder ? r.last_reminder.strftime("%d-%m-%Y") : ""
-      %td
-        =form_tag company_reminder_path(@company.id, r.id), :method => :delete do
-          =submit_tag "Delete"
-      %td
-        =form_tag "#{company_reminder_sent_message_path(@company.id, r.id)}", :method => :post do
-          =hidden_field_tag "date", DateTime.now.strftime("%d-%m-%Y")
-          =submit_tag "Reminder"
+= render partial: 'reminders/reminders_table', locals: { reminders: @company.reminders }

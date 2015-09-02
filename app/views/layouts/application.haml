@@ -12,6 +12,7 @@
       %ul
         - if @user
           %li= @user.name
+          %li= link_to "Companies", companies_path
           %li= link_to "Logout", logout_path
     - if flash[:success]
       %p{style: 'color:green' }= flash[:success]

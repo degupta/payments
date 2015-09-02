@@ -8,6 +8,8 @@ Payments::Application.routes.draw do
 
   resources :companies do
     post 'add_user', to: 'companies#add_user', as: 'add_user'
+    get  'pending_reminders', to: 'companies#pending_reminders', as: 'pending_reminders'
+
     resources 'reminders' do
       post 'sent_message', to: 'reminders#sent_message', as: 'sent_message'
     end

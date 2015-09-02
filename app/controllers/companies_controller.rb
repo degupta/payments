@@ -1,6 +1,9 @@
 class CompaniesController < BaseCompanyController
   def index
-    render
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @user.companies }
+    end
   end
 
   def create
@@ -13,7 +16,7 @@ class CompaniesController < BaseCompanyController
         @user.companies << c
         @user.save!
       end
-      redirect_success(companies_path(c.id), :ok, "Company created")
+      redirect_success(company_path(c.id), :ok, "Company created")
     rescue Exception => e
       redirect_error(companies_path, :precondition_failed, e.message)
     end
@@ -22,6 +25,19 @@ class CompaniesController < BaseCompanyController
   def show
     check_and_run do
       render
+    end
+  end
+
+  def pending_reminders
+    check_and_run do
+      @pending_reminders = @company.pending_reminders
+      respond_to do |format|
+        format.html { render }
+        format.json {
+          puts "YYY"
+          render json: @pending_reminders
+        }
+      end
     end
   end
 
