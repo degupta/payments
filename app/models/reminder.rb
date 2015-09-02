@@ -14,6 +14,21 @@ class Reminder < ActiveRecord::Base
 
   validate :validate_dates
 
+  def as_json(options = {})
+    {
+      party:         party,
+      party_number:  party_number,
+      broker:        broker,
+      broker_number: broker_number,
+      bill_date:     bill_date.strftime("%d-%m-%Y"),
+      bill_no:       bill_no,
+      amount:        amount,
+      due_date:      due_date.strftime("%d-%m-%Y"),
+      repeat:        repeat,
+      last_message:  (last_reminder ? last_reminder.strftime("%d-%m-%Y") : nil)
+    }
+  end
+
   private
 
   def validate_dates
