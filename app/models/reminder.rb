@@ -21,19 +21,4 @@ class Reminder < ActiveRecord::Base
       errors.add(:due_date, "Due Date must be after bill date")
     end
   end
-
-  def as_json(options = {})
-    {
-      party:         party,
-      party_number:  party_number,
-      broker:        broker,
-      broker_number: broker_number,
-      bill_date:     bill_date,
-      bill_no:       bill_no,
-      amount:        amount,
-      due_date:      due_date,
-      repeat:        repeat,
-      last_message:  last_reminder
-    }
-  end
 end

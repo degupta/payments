@@ -33,10 +33,7 @@ class CompaniesController < BaseCompanyController
       @pending_reminders = @company.pending_reminders
       respond_to do |format|
         format.html { render }
-        format.json {
-          puts "YYY"
-          render json: @pending_reminders
-        }
+        format.json { render json: @pending_reminders.map {|r| r.as_json} }
       end
     end
   end
