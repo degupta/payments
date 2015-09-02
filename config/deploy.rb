@@ -101,7 +101,7 @@ end
 namespace :database do
  task :restart do
   on roles(:app), in: :sequence do
-    execute "sudo service postgresql restart"
+    execute "sudo service postgresql94 restart"
   end
  end
 
