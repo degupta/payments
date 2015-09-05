@@ -2,7 +2,7 @@ class LoginController < ApplicationController
 
   def index
     if @user
-      redirect_to user_path(@user.id)
+      redirect_to companies_path
     else
       render
     end

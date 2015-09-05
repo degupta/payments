@@ -22,7 +22,7 @@ set :rvm_ruby_version, '2.1.0'
 # ========================== Capistrano settings =============================================
 
 # ========================== Server ==========================================================
-server "ec2-52-88-46-165.us-west-2.compute.amazonaws.com",
+server "ec2-52-88-4-201.us-west-2.compute.amazonaws.com",
   roles: %w(app web worker),
   user: fetch(:user),
   ssh_options: {
