@@ -31,14 +31,21 @@ http {
     client_max_body_size 100M;
     gzip                 on;
 
+    server_names_hash_bucket_size 512;
+
     server {
         passenger_enabled on;
         root              /var/www/payments/current/public;
         listen            80;
         server_name       <%= @server_name %>;
-        location / {
-            passenger_enabled on;
-            root   /var/www/payments/current/public;
+
+        location = /try {
+            return 200 'gangnam style!';
+            add_header Content-Type text/plain;
+        }
+
+        location = / {
+            return 301 $scheme://<%= @server_name %>/login;
         }
     }
 
