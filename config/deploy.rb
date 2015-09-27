@@ -72,14 +72,14 @@ namespace :nginx do
   task :configure do
     on roles(:web), in: :sequence do |server|
       # we need sudo permissions to copy to /etc, so, since we can't pass them with scp, copy the file on the server
-      upload! "config/deploy/nginx", "nginx"
-      execute "sudo mv ~/nginx /etc/init.d/nginx"
+      # upload! "config/deploy/nginx", "nginx"
+      # execute "sudo mv ~/nginx /etc/init.d/nginx"
       # grab current paths, put them in the local nginx.conf template and upload the generated file to the server
-      @passenger_paths = capture 'cat /opt/nginx/conf/nginx.conf | grep passenger | grep gems'
+      # @passenger_paths = capture 'cat /etc/nginx/nginx.conf | grep passenger | grep gems'
       @server_name = server.hostname
       @rails_env = fetch(:rails_env)
       upload! StringIO.new(from_template("config/nginx.conf.erb")), "nginx.conf"
-      execute "sudo mv ~/nginx.conf /opt/nginx/conf/nginx.conf"
+      execute "sudo mv ~/nginx.conf /etc/nginx/nginx.conf"
     end
   end
 

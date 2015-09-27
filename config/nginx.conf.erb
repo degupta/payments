@@ -1,4 +1,4 @@
-user  ec2-user;
+user  ubuntu;
 worker_processes  4;
 
 #error_log  logs/error.log;
@@ -14,50 +14,34 @@ events {
 
 
 http {
-    <%= @passenger_paths %>
-    passenger_nodejs /usr/local/bin/node;
-    passenger_default_user ec2-user;
+    passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+    passenger_ruby /usr/bin/passenger_free_ruby;
+    passenger_nodejs /usr/nodejs;
+    passenger_default_user ubuntu;
     passenger_app_env <%= @rails_env %>;
 
     include       mime.types;
     default_type  application/octet-stream;
 
-    sendfile        on;
-    #tcp_nopush     on;
-
-    keepalive_timeout  65;
-
+    sendfile             on;
+    tcp_nopush           on;
+    tcp_nodelay          on;
+    keepalive_timeout    65;
+    types_hash_max_size  2048;
     client_max_body_size 100M;
+    gzip                 on;
 
-    gzip  on;
-
-    server {
-        listen       80;
-        add_header   Cache-Control "no-store, no-cache, must-revalidate";
-        return       302 https://$host$request_uri;
-    }
-
-
-    # HTTPS server
     server {
         passenger_enabled on;
         root   /var/www/payments/current/public;
-        listen       443;
-        server_name  .wearableintelligence.com;
-
-        ssl                  on;
-        ssl_certificate      server.crt;
-        ssl_certificate_key  server.key;
-
-        ssl_session_timeout  5m;
-
-        ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
-        ssl_ciphers  HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers   on;
-
+        listen       80;
+        server_name  @server_name;
         location / {
             passenger_enabled on;
             root   /var/www/payments/current/public;
         }
     }
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
 }

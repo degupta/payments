@@ -57,4 +57,4 @@ production:
   database: payments_production
   pool: 5
   username: payments
-  password:
+  password: payments
