@@ -41,7 +41,9 @@ class CompaniesController < BaseCompanyController
   def add_user
     check_and_run do
       user = User.where("email = ?", params[:email]).first
-      if user.has_company? @company
+      if user == nil
+        redirect_error(companies_path, :not_found, "User not found")
+      elsif user.has_company? @company
         redirect_success(companies_path, :ok, "User already part of company")
       else
         user.companies << @company
