@@ -17,4 +17,4 @@
 
 .DS_STORE
 
-config/keys/payments.pem
+*.pem

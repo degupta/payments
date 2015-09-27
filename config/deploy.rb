@@ -27,7 +27,7 @@ server "ec2-52-88-4-201.us-west-2.compute.amazonaws.com",
   user: fetch(:user),
   ssh_options: {
     forward_agent: true,
-    keys: ["config/keys/payments.pem"]
+    keys: ["config/keys/payments2.pem"]
   }
 # ========================== Server ==========================================================
 
