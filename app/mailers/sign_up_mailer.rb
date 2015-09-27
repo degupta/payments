@@ -1,5 +1,5 @@
 class SignUpMailer < ActionMailer::Base
-  default from: 'mailer@wearableintelligence.com'
+  default from: 'ktoolroom@gmail.com'
 
   def sign_up_email(user, password, reset_password = false)
     @user = user

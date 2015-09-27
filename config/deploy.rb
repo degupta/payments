@@ -13,16 +13,16 @@ set :pty, true # Must be set for the password prompt from git to work
 
 # :deploy_to is default: -> { "/var/www/#{fetch(:application)}" }
 set :application, "payments"
-set :user,        "ec2-user"
+set :user,        "ubuntu"
 set :repo_url,    "git@github.com:degupta/payments.git"
 ask :branch,      "master"
 
 # RVM - adapted from https://rvm.io/integration/capistrano/
-set :rvm_ruby_version, '2.1.0'
+set :rvm_ruby_version, '2.2.1'
 # ========================== Capistrano settings =============================================
 
 # ========================== Server ==========================================================
-server "ec2-52-88-4-201.us-west-2.compute.amazonaws.com",
+server "ec2-52-88-94-73.us-west-2.compute.amazonaws.com",
   roles: %w(app web worker),
   user: fetch(:user),
   ssh_options: {
@@ -101,7 +101,7 @@ end
 namespace :database do
  task :restart do
   on roles(:app), in: :sequence do
-    execute "sudo service postgresql94 restart"
+    execute "sudo service postgresql restart"
   end
  end
 
@@ -136,13 +136,13 @@ end
 namespace :yum do
   task :update_all do
     on roles(:all), in: :sequence do
-      execute "sudo yum update -y"
+      execute "sudo apt-get update -y"
     end
   end
 
   task :install_all do
     on roles(:all), in: :sequence do
-      execute "sudo yum install -y git gcc-c++ libcurl-devel patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel git-core ImageMagick ImageMagick-devel"
+      execute "sudo apt-get install -y git gcc-c++ libcurl-devel patch readline readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison iconv-devel gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel git-core ImageMagick ImageMagick-devel"
     end
   end
   before :install_all, :update_all

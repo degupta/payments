@@ -33,7 +33,6 @@ http {
 
     server {
         listen       80;
-        server_name  .wearableintelligence.com;
         add_header   Cache-Control "no-store, no-cache, must-revalidate";
         return       302 https://$host$request_uri;
     }
@@ -42,7 +41,7 @@ http {
     # HTTPS server
     server {
         passenger_enabled on;
-        root   /var/www/edison/current/public;
+        root   /var/www/payments/current/public;
         listen       443;
         server_name  .wearableintelligence.com;
 
@@ -58,7 +57,7 @@ http {
 
         location / {
             passenger_enabled on;
-            root   /var/www/edison/current/public;
+            root   /var/www/payments/current/public;
         }
     }
 }
