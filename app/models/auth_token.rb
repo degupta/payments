@@ -1,7 +1,7 @@
 class AuthToken < ActiveRecord::Base
   
   APP_SECRET          = "NKSLG53TM37LI48FDDP2LV278P"
-  DEFAULT_EXPIRY_TIME = 1.days.to_i * 1000
+  DEFAULT_EXPIRY_TIME = 7.days.to_i * 1000
 
   # TOKEN = Base64.encode(user_id::expires::hash)
   # HASH  = Digest::SHA256.new.digest(user_id::expires::APP_SECRET)
