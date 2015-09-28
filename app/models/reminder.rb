@@ -16,6 +16,7 @@ class Reminder < ActiveRecord::Base
 
   def as_json(options = {})
     {
+      id:            id,
       party:         party,
       party_number:  party_number,
       broker:        broker,
